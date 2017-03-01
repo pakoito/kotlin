@@ -7,6 +7,8 @@ package kotlin.sequences
  * Given an [iterator] function constructs a [Sequence] that returns values through the [Iterator]
  * provided by that function.
  * The values are evaluated lazily, and the sequence is potentially infinite.
+ *
+ * @sample samples.collections.Sequences.Building.sequenceFromIterator
  */
 @kotlin.internal.InlineOnly
 public inline fun <T> Sequence(crossinline iterator: () -> Iterator<T>): Sequence<T> = object : Sequence<T> {
@@ -15,6 +17,8 @@ public inline fun <T> Sequence(crossinline iterator: () -> Iterator<T>): Sequenc
 
 /**
  * Creates a sequence that returns all elements from this iterator. The sequence is constrained to be iterated only once.
+ *
+ * @sample samples.collections.Sequences.Building.sequenceFromIterator
  */
 public fun <T> Iterator<T>.asSequence(): Sequence<T> = Sequence { this }.constrainOnce()
 
@@ -27,6 +31,8 @@ public inline fun<T> java.util.Enumeration<T>.asSequence(): Sequence<T> = this.i
 
 /**
  * Creates a sequence that returns the specified values.
+ *
+ * @sample samples.collections.Sequences.Building.sequenceOfValues
  */
 public fun <T> sequenceOf(vararg elements: T): Sequence<T> = if (elements.isEmpty()) emptySequence() else elements.asSequence()
 
@@ -552,6 +558,8 @@ private class ConstrainedOnceSequence<T>(sequence: Sequence<T>) : Sequence<T> {
  * The returned sequence is constrained to be iterated only once.
  *
  * @see constrainOnce
+ *
+ * @sample samples.collections.Sequences.Building.generateSequence
  */
 public fun <T : Any> generateSequence(nextFunction: () -> T?): Sequence<T> {
     return GeneratorSequence(nextFunction, { nextFunction() }).constrainOnce()
@@ -565,6 +573,8 @@ public fun <T : Any> generateSequence(nextFunction: () -> T?): Sequence<T> {
  * If [seed] is `null`, an empty sequence is produced.
  *
  * The sequence can be iterated multiple times, each time starting with [seed].
+ *
+ * @sample samples.collections.Sequences.Building.generateSequenceWithSeed
  */
 @kotlin.internal.LowPriorityInOverloadResolution
 public fun <T : Any> generateSequence(seed: T?, nextFunction: (T) -> T?): Sequence<T> =
@@ -581,6 +591,8 @@ public fun <T : Any> generateSequence(seed: T?, nextFunction: (T) -> T?): Sequen
  * If [seedFunction] returns `null`, an empty sequence is produced.
  *
  * The sequence can be iterated multiple times.
+ *
+ * @sample samples.collections.Sequences.Building.generateSequenceWithLazySeed
  */
 public fun <T: Any> generateSequence(seedFunction: () -> T?, nextFunction: (T) -> T?): Sequence<T> =
         GeneratorSequence(seedFunction, nextFunction)
