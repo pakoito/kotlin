@@ -669,6 +669,12 @@ class CodegenAnnotatingVisitor extends KtVisitorVoid {
         bindingTrace.record(MAPPING_FOR_WHEN_BY_ENUM, expression, mapping);
     }
 
+    @Override
+    public void visitChainExpression(@NotNull KtChainExpression expression) {
+        super.visitChainExpression(expression);
+        // TODO PACO?
+    }
+
     private boolean isWhenWithEnums(@NotNull KtWhenExpression expression) {
         return WhenChecker.isWhenByEnum(expression, bindingContext) &&
                SwitchCodegenUtil.checkAllItemsAreConstantsSatisfying(

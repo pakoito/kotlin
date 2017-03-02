@@ -50,6 +50,11 @@ public class CodegenStatementVisitor extends KtVisitor<StackValue, StackValue> {
     public StackValue visitWhenExpression(@NotNull KtWhenExpression expression, StackValue data) {
         return codegen.generateWhenExpression(expression, true);
     }
+    
+    @Override
+    public StackValue visitChainExpression(@NotNull KtChainExpression expression, StackValue data) {
+        return codegen.generateChainExpression(expression, true);
+    }
 
     @Override
     public StackValue visitBlockExpression(@NotNull KtBlockExpression expression, StackValue data) {

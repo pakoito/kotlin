@@ -4777,6 +4777,34 @@ The "returned" value of try expression with no finally is either the last expres
     }
 
     @Override
+    public StackValue visitChainExpression(@NotNull KtChainExpression expression, StackValue receiver) {
+        return generateChainExpression(expression);
+    }
+
+    private StackValue generateChainExpression(KtChainExpression expression) {
+        final KtExpression expr = expression.getSubjectExpression();
+        final Type subjectType = expressionType(expr);
+        final List<KtFunctionLiteral> entries = expression.getEntries();
+        final Type resultType = entries.isEmpty() ? Type.VOID_TYPE: expressionType(entries.get(entries.size() - 1));
+        return StackValue.operation(resultType, new Function1<InstructionAdapter, Unit>() {
+            @Override
+            public Unit invoke(InstructionAdapter adapter) {
+                List<StackValue> returns = new ArrayList<StackValue>(entries.size());
+                for (int i = 0; i < entries.size(); i++) {
+                    KtFunctionLiteral function = entries.get(i);
+                    final StackValue value = generateBlock(function.getBodyExpression(), false);
+                    returns.add(value);
+                }
+
+                // TODO PACO NOW WHAT?
+
+                BREAK
+                return Unit.INSTANCE;
+            }
+        });
+    }
+
+    @Override
     public StackValue visitWhenExpression(@NotNull KtWhenExpression expression, StackValue receiver) {
         return generateWhenExpression(expression, false);
     }
