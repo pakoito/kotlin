@@ -203,6 +203,8 @@ public interface KtNodeTypes {
     KtNodeType WHEN_CONDITION_IS_PATTERN = new KtNodeType("WHEN_CONDITION_IS_PATTERN", KtWhenConditionIsPattern.class);
     KtNodeType WHEN_CONDITION_EXPRESSION = new KtNodeType("WHEN_CONDITION_WITH_EXPRESSION", KtWhenConditionWithExpression.class);
 
+    KtNodeType CHAIN                      = new KtNodeType("CHAIN", KtChainExpression.class);
+
     IElementType PACKAGE_DIRECTIVE = KtStubElementTypes.PACKAGE_DIRECTIVE;
 
     IElementType SCRIPT = KtStubElementTypes.SCRIPT;

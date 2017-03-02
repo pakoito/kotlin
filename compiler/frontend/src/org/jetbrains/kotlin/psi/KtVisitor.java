@@ -242,6 +242,10 @@ public class KtVisitor<R, D> extends PsiElementVisitor {
         return visitExpression(expression, data);
     }
 
+    public R visitChainExpression(@NotNull KtChainExpression expression, D data) {
+        return visitExpression(expression, data);
+    }
+
     public R visitTryExpression(@NotNull KtTryExpression expression, D data) {
         return visitExpression(expression, data);
     }

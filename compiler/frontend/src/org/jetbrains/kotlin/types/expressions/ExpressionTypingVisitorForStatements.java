@@ -412,6 +412,11 @@ public class ExpressionTypingVisitorForStatements extends ExpressionTypingVisito
     }
 
     @Override
+    public KotlinTypeInfo visitChainExpression(@NotNull KtChainExpression expression, ExpressionTypingContext context) {
+        return patterns.visitChainExpression(expression, context, true);
+    }
+
+    @Override
     public KotlinTypeInfo visitBlockExpression(@NotNull KtBlockExpression expression, ExpressionTypingContext context) {
         return components.expressionTypingServices.getBlockReturnedType(expression, context, true);
     }

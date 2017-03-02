@@ -229,6 +229,10 @@ public class KtVisitorVoid extends KtVisitor<Void, Void> {
         super.visitWhenExpression(expression, null);
     }
 
+    public void visitChainExpression(@NotNull KtChainExpression expression) {
+        super.visitChainExpression(expression, null);
+    }
+
     public void visitTryExpression(@NotNull KtTryExpression expression) {
         super.visitTryExpression(expression, null);
     }
@@ -745,6 +749,12 @@ public class KtVisitorVoid extends KtVisitor<Void, Void> {
     @Override
     public final Void visitWhenExpression(@NotNull KtWhenExpression expression, Void data) {
         visitWhenExpression(expression);
+        return null;
+    }
+
+    @Override
+    public final Void visitChainExpression(@NotNull KtChainExpression expression, Void data) {
+        visitChainExpression(expression);
         return null;
     }
 

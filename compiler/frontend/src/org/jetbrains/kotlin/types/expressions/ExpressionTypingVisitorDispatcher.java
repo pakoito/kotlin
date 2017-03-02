@@ -318,6 +318,11 @@ public abstract class ExpressionTypingVisitorDispatcher extends KtVisitor<Kotlin
         return controlStructures.visitBreakExpression(expression, data);
     }
 
+    @Override
+    public KotlinTypeInfo visitChainExpression(@NotNull KtChainExpression expression, ExpressionTypingContext data) {
+        return patterns.visitChainExpression(expression, data);
+    }
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override

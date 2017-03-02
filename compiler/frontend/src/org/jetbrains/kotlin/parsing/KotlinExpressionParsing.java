@@ -61,7 +61,7 @@ public class KotlinExpressionParsing extends AbstractKotlinParsing {
             FUN_KEYWORD, FOR_KEYWORD, NULL_KEYWORD,
             TRUE_KEYWORD, FALSE_KEYWORD, IS_KEYWORD, THROW_KEYWORD, RETURN_KEYWORD, BREAK_KEYWORD,
             CONTINUE_KEYWORD, OBJECT_KEYWORD, IF_KEYWORD, TRY_KEYWORD, ELSE_KEYWORD, WHILE_KEYWORD, DO_KEYWORD,
-            WHEN_KEYWORD, RBRACKET, RBRACE, RPAR, PLUSPLUS, MINUSMINUS, EXCLEXCL,
+            WHEN_KEYWORD, CHAIN_KEYWORD, RBRACKET, RBRACE, RPAR, PLUSPLUS, MINUSMINUS, EXCLEXCL,
             //            MUL,
             PLUS, MINUS, EXCL, DIV, PERC, LTEQ,
             // TODO GTEQ,   foo<bar, baz>=x
@@ -95,6 +95,7 @@ public class KotlinExpressionParsing extends AbstractKotlinParsing {
 
             IF_KEYWORD, // if
             WHEN_KEYWORD, // when
+            CHAIN_KEYWORD, // when
             TRY_KEYWORD, // try
             OBJECT_KEYWORD, // object
 
@@ -648,6 +649,9 @@ public class KotlinExpressionParsing extends AbstractKotlinParsing {
         else if (at(WHEN_KEYWORD)) {
             parseWhen();
         }
+        else if (at(CHAIN_KEYWORD)) {
+            parseChain();
+        }
         else if (at(TRY_KEYWORD)) {
             parseTry();
         }
@@ -806,6 +810,34 @@ public class KotlinExpressionParsing extends AbstractKotlinParsing {
             return false;
         }
         return true;
+    }
+
+    /*
+     * chain
+     *   : "chain" "{"
+     *         functionLiteral*
+     *     "}"
+     *   ;
+     */
+    private void parseChain() {
+        assert _at(CHAIN_KEYWORD);
+
+        PsiBuilder.Marker chain = mark();
+
+        advance(); // CHAIN_KEYWORD
+
+        // Parse when block
+        myBuilder.enableNewlines();
+        if (expect(LBRACE, "Expecting '{'")) {
+            while (!eof() && !at(RBRACE)) {
+                parseFunctionLiteral();
+            }
+
+            expect(RBRACE, "Expecting '}'");
+        }
+        myBuilder.restoreNewlinesState();
+
+        chain.done(CHAIN);
     }
 
     /*

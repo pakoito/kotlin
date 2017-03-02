@@ -75,6 +75,7 @@ public interface KtTokens {
     KtKeywordToken WHILE_KEYWORD            = KtKeywordToken.keyword("while");
     KtKeywordToken DO_KEYWORD               = KtKeywordToken.keyword("do");
     KtKeywordToken WHEN_KEYWORD             = KtKeywordToken.keyword("when");
+    KtKeywordToken CHAIN_KEYWORD            = KtKeywordToken.keyword("chain");
     KtKeywordToken INTERFACE_KEYWORD        = KtKeywordToken.keyword("interface");
 
     // Reserved for future use:
@@ -196,7 +197,7 @@ public interface KtTokens {
                                         NULL_KEYWORD,
                                         TRUE_KEYWORD, FALSE_KEYWORD, IS_KEYWORD,
                                         IN_KEYWORD, THROW_KEYWORD, RETURN_KEYWORD, BREAK_KEYWORD, CONTINUE_KEYWORD, OBJECT_KEYWORD, IF_KEYWORD,
-                                        ELSE_KEYWORD, WHILE_KEYWORD, DO_KEYWORD, TRY_KEYWORD, WHEN_KEYWORD,
+                                        ELSE_KEYWORD, WHILE_KEYWORD, DO_KEYWORD, TRY_KEYWORD, WHEN_KEYWORD, CHAIN_KEYWORD,
                                         NOT_IN, NOT_IS, AS_SAFE,
                                         TYPEOF_KEYWORD
     );
