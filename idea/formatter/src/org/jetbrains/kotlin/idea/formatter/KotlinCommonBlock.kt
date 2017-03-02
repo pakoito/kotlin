@@ -158,7 +158,7 @@ abstract class KotlinCommonBlock(
         }
 
         return when (type) {
-            in CODE_BLOCKS, KtNodeTypes.WHEN, KtNodeTypes.IF, KtNodeTypes.FOR, KtNodeTypes.WHILE, KtNodeTypes.DO_WHILE -> ChildAttributes(Indent.getNormalIndent(), null)
+            in CODE_BLOCKS, KtNodeTypes.WHEN, KtNodeTypes.IF, KtNodeTypes.FOR, KtNodeTypes.WHILE, KtNodeTypes.DO_WHILE, KtNodeTypes.CHAIN -> ChildAttributes(Indent.getNormalIndent(), null)
 
             KtNodeTypes.TRY -> ChildAttributes(Indent.getNoneIndent(), null)
 
@@ -209,6 +209,10 @@ abstract class KotlinCommonBlock(
                         jetCommonSettings.ALIGN_MULTILINE_METHOD_BRACKETS, LPAR, RPAR)
 
             parentType === KtNodeTypes.WHEN ->
+                getAlignmentForCaseBranch(jetSettings.ALIGN_IN_COLUMNS_CASE_BRANCH)
+
+            // TODO PACO
+            parentType === KtNodeTypes.CHAIN ->
                 getAlignmentForCaseBranch(jetSettings.ALIGN_IN_COLUMNS_CASE_BRANCH)
 
             parentType === KtNodeTypes.WHEN_ENTRY ->

@@ -217,6 +217,7 @@ fun createSpacingBuilder(settings: CodeStyleSettings, builderUtil: KotlinSpacing
             betweenInside(WHILE_KEYWORD, LPAR, WHILE).spacing(1, 1, 0, false, 0)
             betweenInside(WHILE_KEYWORD, LPAR, DO_WHILE).spacing(1, 1, 0, false, 0)
             betweenInside(WHEN_KEYWORD, LPAR, WHEN).spacing(1, 1, 0, false, 0)
+            betweenInside(CHAIN_KEYWORD, LBRACE, CHAIN).spacing(1, 1, 0, false, 0)
 
             betweenInside(LPAR, VALUE_PARAMETER, FOR).spaces(0)
             betweenInside(LPAR, DESTRUCTURING_DECLARATION, FOR).spaces(0)
